@@ -29,10 +29,10 @@ public class TodoService {
 
                 ListTodo newListTodo = listTodoRepository.save(listTodoById);
 
-                Integer lastTodo = (newListTodo.getListTodo().size() - 1);
+                int lastIndexTodo = (newListTodo.getListTodo().size() - 1);
 
                 Todo newTodo = newListTodo.getListTodo()
-                                .get(lastTodo);
+                                .get(lastIndexTodo);
                 TodoDTO toTodoDTO = converter.fromModel(newTodo);
                 toTodoDTO.setListTodoId(newListTodo.getId());
 
@@ -52,18 +52,10 @@ public class TodoService {
                                         return todoToUpdate;
                                 }).collect(Collectors.toList());
                 ListTodo listTodo = listTodoRepository.save(listToDoToUpdate);
-
-                Todo todoUpdated = findTodoUpdated(listTodo, todoDTO.getId());
-
-                return todoConverter.fromModel(todoUpdated);
-        }
-
-        private Todo findTodoUpdated(ListTodo listTodo, Long idTodo) {
-                return listTodo.getListTodo()
-                                .stream()
-                                .filter(todo -> todo.getId().equals(idTodo))
-                                .findFirst()
-                                .orElseThrow(() -> new RuntimeException("todo updated not found"));
+                Todo todoUpdated = getTodoById(listTodo, todoDTO.getId());
+                TodoDTO toToDoDTO = todoConverter.fromModel(todoUpdated);
+                toToDoDTO.setListTodoId(id);
+                return toToDoDTO;
         }
 
         public void delete(Long idList, Long idTodo) {
@@ -87,6 +79,6 @@ public class TodoService {
                                 .stream()
                                 .filter(t -> t.getId().equals(idTodo))
                                 .findFirst()
-                                .orElseThrow(() -> new RuntimeException("Todo id not found"));
+                                .orElseThrow(() -> new RuntimeException("Todo not found"));
         }
 }

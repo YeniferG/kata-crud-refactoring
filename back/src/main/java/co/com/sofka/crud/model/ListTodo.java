@@ -1,9 +1,9 @@
 package co.com.sofka.crud.model;
 
 import java.util.List;
-
 import javax.persistence.*;
 
+@Entity
 public class ListTodo {
 
     @Id

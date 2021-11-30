@@ -20,7 +20,7 @@ public class TodoController {
         return new ResponseEntity(todoService.save(todoDTO), HttpStatus.CREATED);
     }
 
-    @PutMapping("/todo/{id}")
+    @PutMapping("/todo/list-todo/{id}")
     public ResponseEntity<TodoDTO> update(@PathVariable Long id, @RequestBody TodoDTO todoDTO) {
         if (todoDTO.getId() != null) {
             return new ResponseEntity(todoService.update(id, todoDTO), HttpStatus.OK);
