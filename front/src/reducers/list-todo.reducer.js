@@ -15,19 +15,22 @@ function reducer(state, action) {
             todoUpItem.list = listUpdateEdit;
             todoUpItem.item = {};
             return { ...state, todo: todoUpItem }
+        case 'add-subtodo':
+            const newListToDo = state.listToDo.map(toDo => {
+                if (toDo.id === payload.listTodoId) {
+                    const listToUpdate = toDo.listTodo
+                    return { ...toDo, listTodo: [...listToUpdate, payload] }
+                }
+                return toDo
+            })
+            return { ...state, listToDo: newListToDo }
         case 'delete-item':
             const listUpdate = state.listToDo.filter((todo) => {
                 return todo.id !== action.id;
             });
             return { ...state, listToDo: listUpdate }
         case 'update-list':
-            const todoUpList = state;
-            todoUpList.listToDo = action.list;
-            return { ...state, todo: todoUpList }
-        case 'edit-item':
-            const todoUpEdit = state.todo;
-            todoUpEdit.item = action.item;
-            return { ...state, todo: todoUpEdit }
+            return { ...state, listToDo: action.list }
         case 'add-item':
             const list = state.listToDo;
             list.push(payload)
@@ -37,4 +40,4 @@ function reducer(state, action) {
     }
 }
 
-export default reducer; 
+export default reducer;
