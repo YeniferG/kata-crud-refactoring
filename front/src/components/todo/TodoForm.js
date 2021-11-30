@@ -1,24 +1,20 @@
 import React, { useContext, useRef, useState } from 'react';
-import HOST_API from '../../constants';
 import { Store } from '../../store/store';
+import HOST_API from '../../constants';
+
 
 const TodoForm = ({ listId }) => {
-
     const { dispatch, state } = useContext(Store);
-
     const [name, setName] = useState('');
     const formRef = useRef(null);
 
     const handleAddSubTodo = (e) => {
         e.preventDefault()
-
         const request = {
             listTodoId: listId,
             name,
             completed: false
         }
-
-
         fetch(`${HOST_API}/todo`, {
             method: 'POST',
             body: JSON.stringify(request),
@@ -33,10 +29,12 @@ const TodoForm = ({ listId }) => {
 
     const handleUpdateSubTodo = (e) => {
         e.preventDefault()
+
         const request = {
             ...state.toDo,
             name
         }
+
         fetch(`${HOST_API}/todo`, {
             method: 'PUT',
             body: JSON.stringify(request),
@@ -44,10 +42,10 @@ const TodoForm = ({ listId }) => {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json())
-            .then(todoUpdated => {
-                dispatch({ type: 'update-subtodo', 'payload': todoUpdated })
-            })
+        .then(response => response.json())
+        .then(todoUpdated => {
+            dispatch({ type: 'update-subtodo', 'payload': todoUpdated })
+        })
         formRef.current.reset()
     }
 
@@ -65,5 +63,4 @@ const TodoForm = ({ listId }) => {
         </form>
     )
 }
-
-export default TodoForm; 
+export default TodoForm;

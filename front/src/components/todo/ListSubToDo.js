@@ -1,10 +1,10 @@
 import React, { useContext } from 'react';
-import HOST_API from '../../constants';
 import { Store } from '../../store/store';
+import HOST_API from '../../constants';
+
 
 const ListSubTodo = ({ listSubTodo, listId }) => {
-
-    const { dispatch, state } = useContext(Store)
+    const { dispatch, state } = useContext(Store);
 
     const handleDelete = (toDoId) => {
         fetch(`${HOST_API}/list-todo/${listId}/todo/${toDoId}`, {
@@ -14,11 +14,13 @@ const ListSubTodo = ({ listSubTodo, listId }) => {
     }
 
     const handleCompleted = (e, todo) => {
+
         const request = {
             ...todo,
             listTodoId: listId,
             completed: e.target.checked
         }
+
         fetch(`${HOST_API}/todo`, {
             method: 'PUT',
             body: JSON.stringify(request),
@@ -26,14 +28,13 @@ const ListSubTodo = ({ listSubTodo, listId }) => {
                 'Content-Type': 'application/json'
             }
         })
-            .then(response => response.json())
-            .then(todoUpdated => dispatch({ type: 'update-subtodo', 'payload': todoUpdated }))
-
-    }
+        .then(response => response.json())
+        .then(todoUpdated => dispatch({ type: 'update-subtodo', 'payload': todoUpdated }))
+    };
 
     const handleEdit = (todo) => {
         dispatch({ type: 'edit-subtodo', payload: todo })
-    }    
+    };
 
     const decorationDone = {
         textDecoration: 'line-through'
