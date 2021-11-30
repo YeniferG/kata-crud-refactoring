@@ -13,6 +13,11 @@ const ListSubTodo = ({ listSubTodo, listId }) => {
             .then(() => dispatch({ type: "delete-subtodo", payload: { listId, toDoId } }))
     }
 
+    const handleCompleted = (e, todo) => {
+        console.log(todo)
+        console.log(e.target.checked)
+    }
+
     const decorationDone = {
         textDecoration: 'line-through'
     };
@@ -32,7 +37,7 @@ const ListSubTodo = ({ listSubTodo, listId }) => {
                     return <tr key={todo.id}>
                         <td>{todo.id}</td>
                         <td>{todo.name}</td>
-                        <td><input type="checkbox" defaultChecked={todo.completed}></input></td>
+                        <td><input onChange={(e) => handleCompleted(e, todo)} type="checkbox" defaultChecked={todo.completed}></input></td>
                         <td><button onClick={(e) => handleDelete(todo.id)}>Eliminar</button></td>
                         <td><button>Editar</button></td>
                     </tr>

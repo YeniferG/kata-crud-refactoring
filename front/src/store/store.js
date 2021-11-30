@@ -1,5 +1,5 @@
 import React, { createContext, useReducer } from "react";
-import reducer from "../reducers/list-todo.reducer";
+import reducer from "../reducers/reducer";
 
 const initialState = {
     listToDo: [],
