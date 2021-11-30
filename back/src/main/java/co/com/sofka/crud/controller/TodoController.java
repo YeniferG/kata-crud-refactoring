@@ -20,12 +20,28 @@ public class TodoController {
         return new ResponseEntity(todoService.save(todoDTO), HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/list-todo/{idList}/todo/{idTodo}")
-    public ResponseEntity delete(@PathVariable Long idList, @PathVariable Long idTodo) {
-        if (todoService.delete(idList, idTodo)) {
-            return new ResponseEntity(HttpStatus.OK);
+    @PutMapping("/todo/{id}")
+    public ResponseEntity<TodoDTO> update(@PathVariable Long id, @RequestBody TodoDTO todoDTO) {
+        if (todoDTO.getId() != null) {
+            return new ResponseEntity(todoService.update(id, todoDTO), HttpStatus.OK);
         }
         return new ResponseEntity(HttpStatus.NOT_FOUND);
+    }
+
+    @DeleteMapping("/list-todo/{idList}/todo/{idTodo}")
+    public ResponseEntity delete(@PathVariable Long idList, @PathVariable Long idTodo) {
+        try {
+            todoService.delete(idList, idTodo);
+            return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/list-todo/{idList}/todo/{idTodo}")
+    public ResponseEntity<TodoDTO> getTodoById(@PathVariable Long idList, @PathVariable Long idTodo) {
+        return new ResponseEntity(todoService.getTodo(idList, idTodo), HttpStatus.OK);
     }
 
 }

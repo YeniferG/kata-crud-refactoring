@@ -20,12 +20,13 @@ public class ListTodoService {
         return converter.fromModel(repository.save(listTodo));
     }
 
-    public Boolean delete(Long id) {
-        return repository.findById(id)
-                .map(listTodo -> {
-                    repository.delete(listTodo);
-                    return true;
-                }).orElse(false);
+    public void delete(Long id) {
+        repository.delete(getListTodoById(id));
+    }
+
+    protected ListTodo getListTodoById(Long idList) {
+        return repository.findById(idList)
+                .orElseThrow(() -> new RuntimeException("List id not found"));
     }
 
 }

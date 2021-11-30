@@ -23,10 +23,13 @@ public class ListTodoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteListTodo(@PathVariable Long id) {
-        if (service.delete(id)) {
+        try {
+            service.delete(id);
             return new ResponseEntity(HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
 }
