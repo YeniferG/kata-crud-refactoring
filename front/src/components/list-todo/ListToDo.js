@@ -12,7 +12,13 @@ const ListToDo = () => {
         fetch(HOST_API + "/list-todo")
             .then(response => response.json())
             .then((list) => {
-                dispatch({ type: "update-list", list })
+                const listToDo = list.map(todo => {
+                    const listSubTodo = todo.listTodo.map((subToDo) => {
+                        return { ...subToDo, listTodoId: todo.id }
+                    })
+                    return { ...todo, listTodo: listSubTodo }
+                });
+                dispatch({ type: "update-list", payload: listToDo })
             })
     }, [dispatch]);
 

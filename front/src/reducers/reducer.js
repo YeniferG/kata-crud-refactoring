@@ -4,17 +4,6 @@ function reducer(state, action) {
 
 
     switch (type) {
-        case 'update-item':
-            const todoUpItem = state.todo;
-            const listUpdateEdit = todoUpItem.list.map((item) => {
-                if (item.id === action.item.id) {
-                    return action.item;
-                }
-                return item;
-            });
-            todoUpItem.list = listUpdateEdit;
-            todoUpItem.item = {};
-            return { ...state, todo: todoUpItem }
         case 'add-subtodo':
             const newListToDo = state.listToDo.map(toDo => {
                 if (toDo.id === payload.listTodoId) {
@@ -33,17 +22,27 @@ function reducer(state, action) {
                 return toDo;
             })
             return { ...state, listToDo: listWithoutSubToDo }
+        case 'edit-subtodo':
+            return { ...state, toDo: payload }
+        case 'update-subtodo':
+            const listUpdated = state.listToDo.map(toDo => {
+                if (toDo.id === payload.listTodoId) {
+                    const listTodoUpdated = toDo.listTodo.map(subToDo => subToDo.id === payload.id ? payload : subToDo)
+                    return { ...toDo, listTodo: listTodoUpdated }
+                }
+                return toDo
+            })
+            return { ...state, listToDo: listUpdated, toDo: {} }
         case 'delete-item':
             const listUpdate = state.listToDo.filter((todo) => {
                 return todo.id !== action.id;
             });
             return { ...state, listToDo: listUpdate }
         case 'update-list':
-            return { ...state, listToDo: action.list }
+            return { ...state, listToDo: payload }
         case 'add-item':
             const list = state.listToDo;
-            list.push(payload)
-            return { ...state, listToDo: list }
+            return { ...state, listToDo: [...list, payload] }
         default:
             return state;
     }
