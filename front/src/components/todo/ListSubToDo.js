@@ -1,6 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import HOST_API from '../../constants';
+import { Store } from '../../store/store';
 
-const ListSubTodo = ({ listSubTodo }) => {
+const ListSubTodo = ({ listSubTodo, listId }) => {
+
+    const { dispatch, state } = useContext(Store)
+
+    const handleDelete = (toDoId) => {
+        fetch(`${HOST_API}/list-todo/${listId}/todo/${toDoId}`, {
+            method: 'DELETE'
+        })
+            .then(() => dispatch({ type: "delete-subtodo", payload: { listId, toDoId } }))
+    }
+
     return (
         <table>
             <thead>
@@ -17,7 +29,7 @@ const ListSubTodo = ({ listSubTodo }) => {
                         <td>{todo.id}</td>
                         <td>{todo.name}</td>
                         <td><input type="checkbox" defaultChecked={todo.completed}></input></td>
-                        <td><button>Eliminar</button></td>
+                        <td><button onClick={(e) => handleDelete(todo.id)}>Eliminar</button></td>
                         <td><button>Editar</button></td>
                     </tr>
                 })}
@@ -25,5 +37,4 @@ const ListSubTodo = ({ listSubTodo }) => {
         </table>
     )
 }
-
-export default ListSubTodo; 
+export default ListSubTodo;

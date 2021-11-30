@@ -21,9 +21,18 @@ function reducer(state, action) {
                     const listToUpdate = toDo.listTodo
                     return { ...toDo, listTodo: [...listToUpdate, payload] }
                 }
-                return toDo
+                return toDo;
             })
             return { ...state, listToDo: newListToDo }
+        case 'delete-subtodo':
+            const listWithoutSubToDo = state.listToDo.map(toDo => {
+                if (toDo.id === payload.listId) {
+                    const newListSubToDo = toDo.listTodo.filter(todo => todo.id !== payload.toDoId)
+                    return { ...toDo, listTodo: newListSubToDo }
+                }
+                return toDo;
+            })
+            return { ...state, listToDo: listWithoutSubToDo }
         case 'delete-item':
             const listUpdate = state.listToDo.filter((todo) => {
                 return todo.id !== action.id;

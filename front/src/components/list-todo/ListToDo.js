@@ -68,7 +68,7 @@ const ListToDo = () => {
                                     <button onClick={() => onDelete(todo.id)}>Eliminar</button>
                                 </legend>
                                 <TodoForm listId={todo.id} todo={todo} />
-                                <ListSubTodo listSubTodo={todo.listTodo} />
+                                <ListSubTodo listSubTodo={todo.listTodo} listId={todo.id} />
                             </fieldset>
                         </td>
                     </tr>
