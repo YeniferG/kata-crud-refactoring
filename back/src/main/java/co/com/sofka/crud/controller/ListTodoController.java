@@ -32,4 +32,9 @@ public class ListTodoController {
         }
     }
 
+    @GetMapping
+    public ResponseEntity<Iterable<ListTodoDTO>> findAllListToDoDTO() {
+        return new ResponseEntity(service.getAll(), HttpStatus.OK);
+    }
+
 }

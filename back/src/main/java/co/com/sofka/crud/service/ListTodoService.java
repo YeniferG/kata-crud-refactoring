@@ -29,4 +29,8 @@ public class ListTodoService {
                 .orElseThrow(() -> new RuntimeException("List id not found"));
     }
 
+    public Iterable<ListTodo> getAll() {
+        return repository.findAll();
+    }
+
 }
