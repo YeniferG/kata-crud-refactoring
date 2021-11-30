@@ -24,33 +24,6 @@ const ListToDo = () => {
         })
     };
 
-    const onEdit = (todo) => {
-        // dispatch({ type: "edit-item", item: todo })
-    };
-
-    const onChange = (event, todo) => {
-        // const request = {
-        //     name: todo.name,
-        //     id: todo.id,
-        //     completed: event.target.checked
-        // };
-        // fetch(HOST_API + "/todo", {
-        //     method: "PUT",
-        //     body: JSON.stringify(request),
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // })
-        //     .then(response => response.json())
-        //     .then((todo) => {
-        //         dispatch({ type: "update-item", item: todo });
-        //     });
-    };
-
-    const decorationDone = {
-        textDecoration: 'line-through'
-    };
-
     return <div>
         <table >
             <thead>

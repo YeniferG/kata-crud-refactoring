@@ -40,31 +40,6 @@ const ListToDoForm = () => {
             });
     }
 
-    const onEdit = (event) => {
-        // event.preventDefault();
-
-        // const request = {
-        //   name: state.name,
-        //   id: item.id,
-        //   isCompleted: item.isCompleted
-        // };
-
-
-        // fetch(HOST_API + "/todo", {
-        //   method: "PUT",
-        //   body: JSON.stringify(request),
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //   }
-        // })
-        //   .then(response => response.json())
-        //   .then((todo) => {
-        //     dispatch({ type: "update-item", item: todo });
-        //     setState({ name: "" });
-        //     formRef.current.reset();
-        //   });
-    }
-
     const handleName = (e) => setName(e.target.value)
 
     return <form ref={formRef}>
@@ -74,7 +49,6 @@ const ListToDoForm = () => {
             name="name"
             placeholder="¿Qué piensas hacer hoy?"
             onChange={handleName}></input>
-        {/* {item.id && <button onClick={onEdit}>Actualizar</button>} */}
         <button onClick={onAdd}>Crear</button>
     </form>
 }

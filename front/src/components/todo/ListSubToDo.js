@@ -13,6 +13,10 @@ const ListSubTodo = ({ listSubTodo, listId }) => {
             .then(() => dispatch({ type: "delete-subtodo", payload: { listId, toDoId } }))
     }
 
+    const decorationDone = {
+        textDecoration: 'line-through'
+    };
+
     return (
         <table>
             <thead>
